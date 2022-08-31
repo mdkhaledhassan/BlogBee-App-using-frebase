@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "195188304684",
+    "project_id": "blogbee-7a014",
+    "storage_bucket": "blogbee-7a014.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195188304684:android:ce2b6ac6227baa311c9a89",
+        "android_client_info": {
+          "package_name": "com.mdkhaledhassan.blogbee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195188304684-008adqg0af5fi26mbp1l6u6t714vj35n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNNrmGc-uNjQ_9fnh_jQIjoKMwMMSbhbI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "195188304684-008adqg0af5fi26mbp1l6u6t714vj35n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
