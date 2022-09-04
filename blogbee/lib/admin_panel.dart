@@ -1,4 +1,5 @@
 import 'package:blogbee/add_blog.dart';
+import 'package:blogbee/update_blog.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -17,6 +18,67 @@ class _AdminPanelState extends State<AdminPanel> {
       isScrollControlled: true,
       context: context,
       builder: (context) => AddBlog(),
+    );
+  }
+
+  updateblog(b_id, b_name, b_des, b_img) {
+    return showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      isDismissible: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => UpdateBlog(
+        b_id: b_id,
+        b_des: b_des,
+        b_img: b_img,
+        b_name: b_name,
+      ),
+    );
+  }
+
+  Future<void> deleteblog(select) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text('Are you sure?'),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Container(
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        FirebaseFirestore.instance
+                            .collection('blogs')
+                            .doc(select)
+                            .delete();
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Delete',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 
@@ -90,7 +152,7 @@ class _AdminPanelState extends State<AdminPanel> {
                                 '${data['title']}',
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
                               SizedBox(
@@ -100,7 +162,7 @@ class _AdminPanelState extends State<AdminPanel> {
                                 '${data['description']}',
                                 style: TextStyle(
                                   color: Colors.grey,
-                                  fontSize: 14,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.normal,
                                 ),
                                 maxLines: 3,
@@ -118,26 +180,35 @@ class _AdminPanelState extends State<AdminPanel> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Colors.blue,
-                                child: Icon(
-                                  Icons.edit,
-                                  color: Colors.green,
-                                  size: 20,
-                                ),
-                              ),
+                                  radius: 20,
+                                  backgroundColor: Colors.blue,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      updateblog(document.id, data['title'],
+                                          data['description'], data['img']);
+                                    },
+                                    icon: Icon(
+                                      Icons.edit,
+                                      color: Colors.green,
+                                      size: 20,
+                                    ),
+                                  )),
                               SizedBox(
                                 height: 10,
                               ),
                               CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Colors.blue,
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                  size: 20,
-                                ),
-                              ),
+                                  radius: 20,
+                                  backgroundColor: Colors.blue,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      deleteblog(document.id);
+                                    },
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                      size: 20,
+                                    ),
+                                  )),
                             ],
                           ),
                         ),

@@ -89,6 +89,7 @@ class _AddBlogState extends State<AddBlog> {
             ElevatedButton(
                 onPressed: () {
                   writeData();
+                  Navigator.of(context).pop();
                 },
                 child: Text("Add Blog"))
           ],
